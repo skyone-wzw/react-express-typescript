@@ -6,7 +6,7 @@ const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
 );
 root.render(
-    (() => <p>123456</p>)(),
+    <h1>Hello world!</h1>,
 );
 
 fetch("/api", {headers: {"Accept": "application/json"}})
