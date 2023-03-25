@@ -4,6 +4,7 @@ const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const common = require("./common");
 const {PROJECT_PATH} = require("./const");
 
@@ -15,9 +16,39 @@ module.exports = merge(common, {
         path: path.resolve(PROJECT_PATH, "./build"),
     },
     optimization: {
+        minimize: true,
         minimizer: [
             new CssMinimizerPlugin(),
+            new TerserPlugin(),
         ],
+        splitChunks: {
+            chunks: "all",
+            cacheGroups: {
+                vendor: {
+                    name: "vendor",
+                    priority: 1,
+                    test: /node_modules/,
+                    minSize: 0,
+                    minChunks: 1,
+                },
+                // Example for @mui
+                // ui: {
+                //     name: "ui",
+                //     priority: 2,
+                //     test: /[\\/]node_modules[\\/]@mui(.*)/,
+                //     minSize: 0,
+                //     minChunks: 1,
+                // },
+
+                // For reusable code
+                // common: {
+                //     name: "common",
+                //     priority: 0,
+                //     minSize: 0,
+                //     minChunks: 2,
+                // },
+            },
+        },
     },
     module: {
         rules: [

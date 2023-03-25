@@ -10,7 +10,7 @@ module.exports = {
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js", ".jsx"],
-        alias: {}
+        alias: {},
     },
     module: {
         rules: [
@@ -37,6 +37,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(PROJECT_PATH, "./public/index.html"),
+            publicPath: "/",
         }),
     ],
 };
